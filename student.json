@@ -1,0 +1,74 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "Rahul Sharma",
+      "age": 20,
+      "course": "BCA",
+      "city": "Indore"
+    },
+    {
+      "id": 2,
+      "name": "Pooja Verma",
+      "age": 22,
+      "course": "MCA",
+      "city": "Bhopal"
+    },
+    {
+      "id": 3,
+      "name": "Aman Gupta",
+      "age": 19,
+      "course": "B.Tech",
+      "city": "Delhi"
+    },
+    {
+      "id": 4,
+      "name": "Sneha Patel",
+      "age": 21,
+      "course": "B.Sc",
+      "city": "Ahmedabad"
+    },
+    {
+      "id": 5,
+      "name": "Vikas Singh",
+      "age": 23,
+      "course": "MBA",
+      "city": "Lucknow"
+    },
+    {
+      "id": 6,
+      "name": "Kavita Yadav",
+      "age": 20,
+      "course": "B.Com",
+      "city": "Jaipur"
+    },
+    {
+      "id": 7,
+      "name": "Rohan Mehta",
+      "age": 24,
+      "course": "M.Tech",
+      "city": "Pune"
+    },
+    {
+      "id": 8,
+      "name": "Priya Soni",
+      "age": 18,
+      "course": "BA",
+      "city": "Mumbai"
+    },
+    {
+      "id": 9,
+      "name": "Sahil Khan",
+      "age": 22,
+      "course": "BBA",
+      "city": "Hyderabad"
+    },
+    {
+      "id": 10,
+      "name": "Neha Joshi",
+      "age": 21,
+      "course": "LLB",
+      "city": "Chennai"
+    }
+  ]
+}
