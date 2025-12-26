@@ -71,6 +71,9 @@ def datas(patient_id: int = Path(..., description='Compalsory id', example='123'
         return {'data': 'patient not found!'}
     
 
+@app.get('/contact')
+def get_contact():
+    return "get contact api"
 
 
 
