@@ -1,82 +1,47 @@
-from fastapi import FastAPI,Path, HTTPException
+from fastapi import FastAPI,Path, HTTPException,Query
 import json
-
-
 
 app = FastAPI()
 
-@app.get("/")
+@app.get('/')
 def home():
-    return {"message": "Welcome to FastAPI!"}
-
-@app.get("/user/{user_id}")
-def get_user(user_id: int):
-    return {"user_id": user_id, "name": "Pavan"}
-
-@app.post("/create-user")
-def create_user(data: dict):
- return {"status": "success", "data": data}
-
-@app.get("/hello")
-def hello():
-    return {'message': 'hello'}
-
-def load_students():
-    f=open('student.json',"r")
-    data=json.load(f)
-    return data 
-
-@app.get('/view')
-def view():
-    data = load_students()
-    return data 
-
-@app.get('/student/{student_id}')
-def view_student(student_id: int = Path(..., description="Enter the student ID", example="Like 1,2,3")):
-    data = load_students()
-    # breakpoint()
-    for i in data['students']:
-        if i['id']==student_id:
-            return i
-    raise HTTPException(status_code=404, det='student not found!')
-
-
-@app.get('/patients')
-def load_patient_data():
-    f=open('patient.json',"r")
-    data = json.load(f)
-    return data
-
-@app.get('/patient/{patient_id}')
-def filter_patient(patient_id: int = Path(..., description='Enter Patient Id', example='1,2,3')):
-    data  = load_patient_data()
-    for patient in data['patients']:
-       if patient['patient_id']==patient_id:
-           return patient
-    return HTTPException(status_code=200, detail="Patient Not Found!")
-
-
+    return {'msg':'home page'}
+        
 def load_data():
     f=open('patient.json',"r")
     data=json.load(f)
-    return data
+    return data        
 
-@app.get('/load/{patient_id}')
-def datas(patient_id: int = Path(..., description='Compalsory id', example='123')):
+@app.get('/patients')
+def patients():
     data = load_data()
-    for patient in data['patients']:
-        if patient['patient_id']==patient_id:
-            return patient
+    return data 
+
+
+@app.get('/patient/{patient_id}')
+def get_patient(patient_id: str = Path(..., description="Id of the patient in the DB", example="P001")):
+    data = load_data()
+    if patient_id in data:
+        return data[patient_id]
     else:
-        return {'data': 'patient not found!'}
-    
-
-
-
-
-
-
+        raise HTTPException(status_code=404, detail="Patient Not Found!")
  
 
-        
+@app.get('/sort')
+def sort_patients(sort_by: str = Query(..., description='Sort on the basis of hieght, weigth or bmi'),
+order: str = Query('asc', description="sort in the desc order")):
+    valid_fields = ['hieght','weight', 'bmi']
+    if sort_by not in valid_fields:
+        raise HTTPException(status_code=400, detail=f'Invalid fields select from {valid_fields}')
+    
+    if order not in ['asc', 'desc']:
+        raise HTTPException(status_code=400, detail=f'Invalid order select between asc and desc')
 
+    data = load_data()
+    
+    sort_order = True if order=='desc' else False
+    
+    sorted_data = sorted(data.values(), key=lambda x: x.get(sort_by,0), reverse=sort_order)
+    
+    return sorted_data
+    
